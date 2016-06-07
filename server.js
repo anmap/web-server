@@ -4,17 +4,7 @@ var app = express();
 // Check environment variable PORT on production server
 const PORT = process.env.PORT || 3000;
 
-var middleware = {
-    requireAuth: function(req, res, next) {
-        console.log('Private route hit!');
-        next();
-    },
-    logReq: function(req, res, next) {
-        console.log(`Request at ${ new Date().toString() }: ${ req.method } ${ req.originalUrl }`);
-        next();
-    }
-};
-
+var middleware = require('./middleware');
 app.use(middleware.logReq);
 
 app.get('/about', middleware.requireAuth, function(req, res) {
